@@ -28,7 +28,7 @@ class meteoriteThread extends Thread {
             }
             if (newY <= 0 || newY >= panel.getHeight() - label.getHeight()) {
                 dy = -dy;
-                if(){
+                if(dy > 0){
                    dy += 1; 
                 }else {
                     dy -= 1;
