@@ -6,9 +6,7 @@ import java.util.Random;
 
 public class Meteorite {
     public static void main(String[] args) {
-
-    new PanelMeteorite();
-
+        new PanelMeteorite();
     }
 }
 
@@ -22,8 +20,7 @@ class PanelMeteorite extends JFrame{
     Random rand = new Random();
 
 
-
-
+    
     PanelMeteorite(){
 
         setSize(600,600);
@@ -34,10 +31,6 @@ class PanelMeteorite extends JFrame{
         BackG.setBackground(Color.BLACK);
 
         String []imageFiles = {"meteorite2.png", "meteorite3.png", "meteorite4.png", "meteorite5.png", "meteorite6.png"} ;
-
-
-
-
 
         for (int i = 0; i < meteorite.length; i++) {
 
