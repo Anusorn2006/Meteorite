@@ -20,9 +20,19 @@ class meteoriteThread extends Thread {
 
             if (newX <= 0 || newX >= panel.getWidth() - label.getWidth()) {
                 dx = -dx;
+                if(dx > 0){
+                    dx += 1;
+                }else{
+                    dx -= 1;
+                }
             }
             if (newY <= 0 || newY >= panel.getHeight() - label.getHeight()) {
                 dy = -dy;
+                if(){
+                   dy += 1; 
+                }else {
+                    dy -= 1;
+                }
             }
 
             label.setLocation(label.getX() + dx, label.getY() + dy);
