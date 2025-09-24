@@ -3,26 +3,26 @@ import java.awt.*;
 import java.util.Random;
 import java.net.URL;
 
-        class PanelMeteorite extends JFrame {
+class PanelMeteorite extends JFrame {
 
-            int amountMeteorite = 50;
-            JLabel[] meteorite = new JLabel[amountMeteorite];
-            meteoriteThread[] mtoT = new meteoriteThread[amountMeteorite];
-            ImageIcon[] mtoIcon = new ImageIcon[amountMeteorite];
-            Random rand = new Random();
+    int amountMeteorite = 50;
+    JLabel[] meteorite = new JLabel[amountMeteorite];
+    meteoriteThread[] mtoT = new meteoriteThread[amountMeteorite];
+    ImageIcon[] mtoIcon = new ImageIcon[amountMeteorite];
+    Random rand = new Random();
 
-            PanelMeteorite() {
-                setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                setLocationRelativeTo(null);
+    PanelMeteorite() {
+        setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-                JPanel BackG = new JPanel(null);
-                BackG.setBackground(Color.BLACK);
+        JPanel BackG = new JPanel(null);
+        BackG.setBackground(Color.BLACK);
 
         for (int i = 0; i < meteorite.length; i++) {
-            String chosenFile = Constants.imageFiles[rand.nextInt(Constants.imageFiles.length)]; 
+            String chosenFile = Constants.imageFiles[rand.nextInt(Constants.imageFiles.length)];
 
-            URL url = PanelMeteorite.class.getResource("/" + chosenFile); // ไฟล์อยู่ใน classpath root
+            URL url = PanelMeteorite.class.getResource("/" + chosenFile);
             ImageIcon rawIcon = new ImageIcon(url);
             Image scaled = rawIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
             mtoIcon[i] = new ImageIcon(scaled);
