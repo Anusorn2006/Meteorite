@@ -39,15 +39,18 @@ class PanelMeteorite extends JFrame {
             meteorite[i].setSize(50, 50);
 
             // สุ่มตำแหน่ง
-            int maxX = 600 - meteorite[i].getWidth();
-            int maxY = 600 - meteorite[i].getHeight();
-            meteorite[i].setLocation(rand.nextInt(Math.max(1, maxX)), rand.nextInt(Math.max(1, maxY)));
+            int margin = 50;  // ห่างจากขอบ 50 พิกเซล
+
+            meteorite[i].setLocation(
+                    rand.nextInt(getWidth() - meteorite[i].getWidth() - 2*margin) + margin,
+                    rand.nextInt(getHeight() - meteorite[i].getHeight() - 2*margin) + margin
+            );
 
             BackG.add(meteorite[i]);
 
             // ความเร็วสุ่ม 1-4
-            int dx = rand.nextInt(4) + 1;
-            int dy = rand.nextInt(4) + 1;
+            double dx = rand.nextDouble(0.1, 0.5) ;
+            double dy = rand.nextDouble(0.1, 0.5) ;
 
             mtoT[i] = new meteoriteThread(meteorite[i], BackG, dx, dy);
             mtoT[i].start();
