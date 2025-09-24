@@ -19,10 +19,8 @@ import java.net.URL;
                 JPanel BackG = new JPanel(null);
                 BackG.setBackground(Color.BLACK);
 
-        String[] imageFiles = {"meteorite2.png", "meteorite3.png", "meteorite4.png", "meteorite5.png", "meteorite6.png"};
-
         for (int i = 0; i < meteorite.length; i++) {
-            String chosenFile = imageFiles[rand.nextInt(imageFiles.length)];
+            String chosenFile = Constants.imageFiles[rand.nextInt(Constants.imageFiles.length)]; 
 
             URL url = PanelMeteorite.class.getResource("/" + chosenFile); // ไฟล์อยู่ใน classpath root
             ImageIcon rawIcon = new ImageIcon(url);
