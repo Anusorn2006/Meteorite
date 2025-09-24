@@ -3,7 +3,7 @@ import javax.swing.*;
 class meteoriteThread extends Thread {
     JLabel label;
     JPanel panel;
-    double dx, dy, initDx, initDy;
+    double dx, dy;
     double posX, posY;
    
     
@@ -13,8 +13,6 @@ class meteoriteThread extends Thread {
         this.panel = panel;
         this.dx = dx;
         this.dy = dy;
-        this.initDx = dx;  
-        this.initDy = dy;
         this.posX = label.getX();
         this.posY = label.getY();
     }
