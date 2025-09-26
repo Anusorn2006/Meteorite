@@ -27,7 +27,7 @@ class PanelMeteorite extends JFrame {
         for (int i = 0; i < meteorite.length; i++) {
             String chosenFile = Constants.imageFiles[rand.nextInt(Constants.imageFiles.length)];
 
-            ImageIcon rawIcon = new ImageIcon("Image/" + chosenFile);
+            ImageIcon rawIcon = new ImageIcon("Meteorite/src/Image/" + chosenFile);
             Image scaled = rawIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
             mtoIcon[i] = new ImageIcon(scaled);
 
@@ -36,7 +36,7 @@ class PanelMeteorite extends JFrame {
             meteorite[i].setSize(50, 50);
 
             // สุ่มตำแหน่ง (กันขอบ 50px)
-            int margin = 300;
+            int margin = 50;
             meteorite[i].setLocation(
                     rand.nextInt(getWidth() - meteorite[i].getWidth() - 2*margin) + margin,
                     rand.nextInt(getHeight() - meteorite[i].getHeight() - 2*margin) + margin
@@ -75,11 +75,6 @@ class PanelMeteorite extends JFrame {
                 Rectangle r2 = meteorite[j].getBounds();
 
                 if (r1.intersects(r2)) {
-                    // จุดกึ่งกลาง
-                    int cx = (r1.x + r1.width/2 + r2.x + r2.width/2) / 2;
-                    int cy = (r1.y + r1.height/2 + r2.y + r2.height/2) / 2;
-
-                    // ซ่อน/หยุดลูก j (มินิมอลสุด)
                     meteorite[j].setVisible(false);
                     mtoT[j].interrupt();
                 }
