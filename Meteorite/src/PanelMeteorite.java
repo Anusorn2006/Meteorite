@@ -13,7 +13,7 @@ class PanelMeteorite extends JFrame {
 
     Random rand = new Random();
 
-    //  เพิ่มฟิลด์ 
+    //  เพิ่มฟิลด์ // พื้นหลัง
     private JPanel BackG; 
 
     PanelMeteorite() {
