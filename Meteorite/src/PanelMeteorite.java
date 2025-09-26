@@ -45,8 +45,9 @@ class PanelMeteorite extends JFrame {
             BackG.add(meteorite[i]);
 
             // ความเร็วสุ่ม (คงเดิม)
-            double dx = rand.nextDouble(0.1, 0.5);
-            double dy = rand.nextDouble(0.1, 0.5);
+            double dx = (rand.nextBoolean() ? 1 : -1) * (rand.nextDouble(0.6) + 0.2); // 0.2..0.8
+            double dy = (rand.nextBoolean() ? 1 : -1) * (rand.nextDouble(0.6) + 0.2);
+
 
             mtoT[i] = new meteoriteThread(meteorite[i], BackG, dx, dy);
             mtoT[i].start();
