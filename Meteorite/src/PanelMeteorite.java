@@ -2,84 +2,91 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Random;
 
-class PanelMeteorite extends JFrame {
+
+class PanelMeteorite extends JPanel {
 
     int amountMeteorite = Constants.amount_meteorite;
-    JLabel[] meteorite = new JLabel[amountMeteorite];
-    meteoriteThread[] mtoT = new meteoriteThread[amountMeteorite];
-    ImageIcon[] mtoIcon = new ImageIcon[amountMeteorite];
+    Image []imageMeteorite = new Image[amountMeteorite];
+    double[] posX = new double[amountMeteorite];
+    double[] posY = new double[amountMeteorite];
+    double[] dx = new double[amountMeteorite];
+    double[] dy = new double[amountMeteorite];
+    int SizeMeteorite = 50;
 
     Random rand = new Random();
 
-    //  เพิ่มฟิลด์ // พื้นหลัง
-    private JPanel BackG; 
 
     PanelMeteorite() {
-        setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setSize(Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT);
+        setBackground(Color.BLACK);
 
-        BackG = new JPanel(null);
-        BackG.setBackground(Color.BLACK);
 
-        for (int i = 0; i < meteorite.length; i++) {
+        for (int i = 0; i < amountMeteorite; i++) {
             String chosenFile = Constants.imageFiles[rand.nextInt(Constants.imageFiles.length)];
+            ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+File.separator+"Image"+File.separator+chosenFile);
+            Image iconImage = icon.getImage();
+            imageMeteorite[i] = iconImage.getScaledInstance(SizeMeteorite, SizeMeteorite, Image.SCALE_SMOOTH);
 
-            ImageIcon rawIcon = new ImageIcon("Meteorite/src/Image/" + chosenFile);
-            Image scaled = rawIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-            mtoIcon[i] = new ImageIcon(scaled);
-
-
-            meteorite[i] = new JLabel(mtoIcon[i]);
-            meteorite[i].setSize(50, 50);
 
             // สุ่มตำแหน่ง (กันขอบ 50px)
             int margin = 50;
-            meteorite[i].setLocation(
-                    rand.nextInt(getWidth() - meteorite[i].getWidth() - 2*margin) + margin,
-                    rand.nextInt(getHeight() - meteorite[i].getHeight() - 2*margin) + margin
-            );
+            posX[i] = rand.nextInt(Constants.WINDOW_WIDTH - 50 - 2 * margin) + margin;
+            posY[i] = rand.nextInt(Constants.WINDOW_HEIGHT - 50 - 2 * margin) + margin;
 
-            BackG.add(meteorite[i]);
 
             // ความเร็วสุ่ม (คงเดิม)
-            double dx = (rand.nextBoolean() ? 1 : -1) * (rand.nextDouble(0.6) + 0.2); // 0.2..0.8
-            double dy = (rand.nextBoolean() ? 1 : -1) * (rand.nextDouble(0.6) + 0.2);
+             dx[i] = rand.nextDouble(-0.5, 0.5) ;
+             dy[i] = rand.nextDouble(-0.5, 0.5) ;
 
-
-            mtoT[i] = new meteoriteThread(meteorite[i], BackG, dx, dy);
-            mtoT[i].start();
+            System.out.println(System.getProperty("user.dir")+ File.separator+"src"+File.separator+"Image"+File.separator+chosenFile);
         }
 
-        add(BackG);
-        setVisible(true);
 
-        // >>> เพิ่มตัวเช็คการชนแบบเบา ๆ ทุก 30ms <<<
-        Timer checkTimer = new Timer(30, new ActionListener() {
-            @Override public void actionPerformed(ActionEvent e) {
-                check_Collisions();
-            }
-        });
-        checkTimer.start();
+
     }
+    void update(){
+        for (int i = 0; i < amountMeteorite; i++) {
+            posX[i] += dx[i];
+            posY[i] += dy[i];
 
-    // ตรวจชนแบบ bounding box ของ JLabel
-    private void check_Collisions() {
-        for (int i = 0; i < meteorite.length; i++) {
-            if (!meteorite[i].isVisible()) continue;
-            Rectangle r1 = meteorite[i].getBounds();
-
-            for (int j = i + 1; j < meteorite.length; j++) {
-                if (!meteorite[j].isVisible()) continue;
-                Rectangle r2 = meteorite[j].getBounds();
-
-                if (r1.intersects(r2)) {
-                    meteorite[j].setVisible(false);
-                    mtoT[j].interrupt();
-                }
+            if (posX[i] <= 0)
+            {
+                dx[i] = -dx[i];
+                dx[i] += 1;
+            }
+            if (posX[i] >= this.getWidth() - SizeMeteorite )
+            {
+                dx[i] = -dx[i];
+                dx[i] -= 1;
+            }
+            if (posY[i] <= 0)
+            {
+                dy[i] = -dy[i];
+                dy[i] += 1;
+            }
+            if (posY[i] >= this.getHeight() - SizeMeteorite)
+            {
+                dy[i] = -dy[i];
+                dy[i] -= 1;
             }
         }
+
     }
+
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        for (int i = 0; i < amountMeteorite; i++) {
+            g.drawImage(imageMeteorite[i], (int) posX[i], (int)posY[i], SizeMeteorite, SizeMeteorite, this);
+        }
+    }
+
 }
+
+
+
