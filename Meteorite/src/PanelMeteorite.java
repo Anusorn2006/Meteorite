@@ -26,7 +26,7 @@ class PanelMeteorite extends JPanel {
 
         for (int i = 0; i < amountMeteorite; i++) {
             String chosenFile = Constants.imageFiles[rand.nextInt(Constants.imageFiles.length)];
-            ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+File.separator+"Image"+File.separator+chosenFile);
+            ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+File.separator+"Meteorite"+File.separator+"src"+File.separator+"Image"+File.separator+chosenFile);
             Image iconImage = icon.getImage();
             imageMeteorite[i] = iconImage.getScaledInstance(SizeMeteorite, SizeMeteorite, Image.SCALE_SMOOTH);
 
